@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>計算器</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      width: 300px;
+      background-color: #BEBEBE ;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .display {
+      font-size: 32px;
+      text-align: right;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .button {
+      flex: 1;
+      font-size: 20px;
+      padding: 12px;
+      background-color: #e9e9e9;
+      border-radius: 4px;
+      margin-right: 10px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s;
+    }
+
+    .button:last-child {
+      margin-right: 0;
+    }
+
+    .button.operator {
+      background-color: #ff8c00;
+      color: #fff;
+    }
+
+    .button.double-width {
+      flex: 2;
+    }
+
+    .button.operator.double-width {
+      background-color: #ff5f5f;
+    }
+
+    .button:hover {
+      background-color: #ccc;
+    }
+    .button.operator:hover {
+      background-color: #ccc;
+    }
+    .arrow {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1 align="center">KKA的計算器</h1>
+    <div class="display" id="result">0</div>
+    <div class="button-row">
+      <button class="button operator" onclick="clearResult()">清除</button>
+      <button class="button operator" onclick="backspace()"><span class="arrow">&#8592;</span></button>
+      <button class="button operator" onclick="appendValue('/')">÷</button>
+    </div>
+    <div class="button-row">
+      <button class="button" onclick="appendValue('7')">7</button>
+      <button class="button" onclick="appendValue('8')">8</button>
+      <button class="button" onclick="appendValue('9')">9</button>
+      <button class="button operator" onclick="appendValue('*')">x</button>
+    </div>
+    <div class="button-row">
+      <button class="button" onclick="appendValue('4')">4</button>
+      <button class="button" onclick="appendValue('5')">5</button>
+      <button class="button" onclick="appendValue('6')">6</button>
+      <button class="button operator" onclick="appendValue('-')">-</button>
+       </div>
+    <div class="button-row">
+      <button class="button" onclick="appendValue('1')">1</button>
+      <button class="button" onclick="appendValue('2')">2</button>
+      <button class="button" onclick="appendValue('3')">3</button>
+      <button class="button operator" onclick="appendValue('+')">+</button>
+    </div>
+    <div class="button-row">
+      <button class="button double-width" onclick="appendValue('0')">0</button>
+      <button class="button" onclick="appendValue('.')">.</button>
+      <button class="button operator double-width" onclick="calculate()">=</button>
+    </div>
+  </div>
+  
+  <script>
+    let result = document.getElementById("result");
+    let expression = "";
+    
+    function appendValue(value) {
+      expression += value;
+      result.textContent = expression;
+    }
+    
+    function clearResult() {
+      expression = "";
+      result.textContent = "0";
+    }
+    
+    function backspace() {
+      expression = expression.slice(0, -1);
+      result.textContent = expression;
+    }
+    
+    function calculate() {
+      try {
+        let output = eval(expression);
+        result.textContent = output;
+        expression = output.toString();
+      } catch (error) {
+        result.textContent = "錯誤";
+      }
+    }
+  </script>
+</body>
+</html>
